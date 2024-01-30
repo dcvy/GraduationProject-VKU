@@ -1,0 +1,33 @@
+﻿version: "2.0"
+responses:
+  utter_out_of_scope/non_english:
+  - text: "Xin lỗi, tôi không hiểu, tôi chỉ có thể nói được tiếng Việt"
+  utter_out_of_scope/other:
+  - text: "Tôi không thể giúp bạn về việc này"
+  utter_chitchat/greet:
+  - text: "Tôi ổn"
+  - text: "Cảm ơn bạn"
+
+  utter_chitchat/ask_isbot:
+  - text: "Vâng, Tôi là Chatbot hỗ trợ khách hàng"
+  utter_chitchat/ask_languagesbot:
+  - text: "Tôi chỉ có thể nói tiếng Việt"
+  utter_chitchat/ask_whatismyname:
+  - text: "Tôi không thể truy cập thông tin cá nhân của bạn."
+  utter_chitchat/ask_whatisBot:
+  - text: "Tôi là Chatbot, tôi có nhiệm vụ hỗ trợ khách hàng. Tôi có thể giúp gì cho bạn?"
+  utter_chitchat/ask_whatspossible:
+  - text: "Tôi là Chatbot hỗ trợ khách hàng. Tôi có thể giúp gì cho bạn?"
+    buttons:
+    - title: Hiển thị Sản phẩm
+      payload: /action_customer_product
+    - title: Hiển thị sản phẩm
+      payload: /action_customer_product
+    - title: Danh mục sản phẩm
+      payload: /customer_shop_by_categories
+    - title: Liên hệ
+      payload: /customer_contact
+
+  utter_chitchat/nicetomeetyou:
+  - text: "Rất vui được gặp bạn"
+  - text: "Rất vui được hỗ trợ bạn"

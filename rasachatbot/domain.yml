@@ -1,0 +1,226 @@
+version: "2.0"
+
+intents:
+  - customer_shop
+  - out_of_scope
+  - search_products
+  - products_list
+  - customer_greet
+  - react_negative
+  - react_positive
+  - customer_contact
+  - customer_bye
+  - customer_help
+  - customer_goodbye
+  - bot_challenge
+  - affirm
+  - feedback
+  - customer_end_conversation
+  - customer_menu
+  - customer_shop_by_categories
+  - conversation_continue
+  - thank_you
+  - add_to_cart
+  - action_customer_product
+  
+entities:
+  - ProductId
+  - Count
+  - name
+  - purchaseorder
+  - productname
+  - shop
+  - category
+  - language
+  - price
+  - time
+  - number
+  - more_less
+  - author_name
+  - first_name
+  - last_name
+  - address
+  - city
+  - state
+  - country
+  - postal_code
+  - phone_number
+  - year
+  - umsession
+  - dcsession
+slots:
+  product_info:
+    type: text   
+  more_less:
+    type: text
+  time:
+    type: text
+  price:
+    type: text
+  author_name:
+    type: text
+  productname:
+    type: text
+  user:
+    type: text
+  feedback:
+    type: text
+  medium:
+    type: text
+  limit:
+    type: text
+  name:
+    type: text
+  purchaseorder:
+    type: text
+  orderid:
+    type: text
+  category:
+    type: text
+  product:
+    type: text
+  skip:
+    type: text
+  umsession:
+    type: text
+  dcsession:
+    type: text
+  number:
+    type: text
+  language:
+    type: categorical
+    values:
+      - english
+  first_name:
+    type: text
+  last_name:
+    type: text
+  address:
+    type: text
+  state:
+    type: text
+  city:
+    type: text
+  country:
+    type: text
+  postal_code:
+    type: text
+  phone_number:
+    type: text
+  year:
+    type: text
+responses:
+  utter_customer_greet:
+  - text: Rất vui được gặp bạn! Tôi có thể giúp gì cho bạn?
+    buttons:
+    - title: Danh mục sản phẩm
+      payload: /customer_shop_by_categories
+    - title: Hiển thị sản phẩm
+      payload: /action_customer_product
+    - title: Liên hệ với chúng tôi
+      payload: /customer_contact
+  utter_customer_contact:
+  - text: Bạn có thể liên hệ chúng tôi theo SĐT(+84)0773975413 địa chỉ Trường Đại học Công nghệ Thông tin và Truyền thông Việt – Hàn.
+  utter_customer_bye:
+  - text: Xin chào!
+  - text: Chào!
+  - text: Chào bạn!
+  - text: Chào bạn, hân hạnh gặp lại sau!
+  - text: Cảm ơn đã ủng hộ chúng tôi!
+  utter_default:
+  - text: Xin lỗi, tôi không hiểu!
+  - text: Tôi không hiểu những gì bạn nói. Có thể nói lại được không?
+  utter_ask_affirm:
+  - text: OK
+  utter_ask_rephrase:
+  - text: Bạn nói lại được không?
+  utter_customer_help:
+  - text: |
+      Rất vui được gặp bạn! Tôi có thể giúp gì cho bạn?
+    buttons:
+    - title: Hiển thị sản phẩm
+      payload: /action_customer_product
+    - title: Danh mục sản phẩm
+      payload: /customer_shop_by_categories
+    - title: Liên hệ với chúng tôi
+      payload: /customer_contact
+
+  utter_chitchat:
+  - text: |
+      Vâng, tôi là "
+  - text: |
+      Tôi là chatbot hỗ trợ khách hàng của VYX Store
+  utter_out_of_scope/non_english:
+  - text: Tôi chỉ nói tiếng Việt, tôi xin lỗi!
+  utter_out_of_scope/other:
+  - text: "Tôi không thể giúp bạn về vấn đề này, tôi xin lỗi!"
+  utter_out_of_scope:
+  - text: |
+      Tôi là chatbot hỗ trợ của VYX Store. Tôi có thể giúp gì cho bạn?
+    buttons:
+    - title: Hiển thị sản phẩm
+      payload: /action_customer_product
+    - title: Danh mục sản phẩm
+      payload: /customer_shop_by_categories
+    - title: Liên hệ với chúng tôi
+      payload: /customer_contact
+  utter_react_negative:
+  - text: 😕
+  - text: 😞
+  - text: 😥
+  - text: 😢
+  utter_react_positive:
+  - text: 😄
+  - text: 😊
+  - text: 👏
+  - text: 😍
+  utter_canthelp:
+  - text:  |
+      Xin lỗi tôi không thể giúp bạn, Tôi có thể giúp bạn với
+    buttons:
+    - title: Hiển thị sản phẩm
+      payload: /action_customer_product
+    - title: Danh mục sản phẩm
+      payload: /customer_shop_by_categories
+    - title: Liên hệ với chúng tôi
+      payload: /customer_contact
+  utter_customer_end_conversation:
+  - text: |
+      Vui lòng gửi phản hồi !
+    buttons:
+    - title: Xuất sắc
+      payload: /xuất sắc
+    - title: Tốt
+      payload: /tốt
+    - title: Bình thường
+      payload: /bình thường
+    - title: Tệ
+      payload: /tệ
+  utter_conversation_continue:
+  - text: |
+      Tôi có thể giúp gì cho bạn tiếp theo?
+    buttons:
+      - title: Không, cảm ơn
+        payload: /customer_end_conversation
+      - title: Có, tôi có câu hỏi khác
+        payload: /customer_help
+  utter_thank_you:
+  - text: |
+      Cảm ơn!
+  utter_thumbsup:
+    - text: |
+        Rất vui được hỗ trợ!
+
+
+actions:
+  - action_product
+  - action_default_fallback
+  - action_feedback
+  - action_categories_list
+  - action_search_product
+  - utter_out_of_scope
+  - action_add_to_cart
+  
+session_config:
+  session_expiration_time: 60  # value in minutes
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,431 @@
+﻿@using Kclinic.Utility;
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>VYXSHOP</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Tooplate">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="~/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/asset/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/asset/css/animate.css">
+    <link rel="stylesheet" href="~/asset/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/asset/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="~/asset/css/tooplate-style.css">
+    <link rel="stylesheet" href="~/chatbot-ui.css">
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+    <!-- PRE LOADER -->
+    <section class="preloader">
+        <div class="spinner">
+
+            <span class="spinner-rotate"></span>
+
+        </div>
+    </section>
+
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-2 col-sm-3">
+                    
+                </div>
+
+                <div class="col-md-10 col-sm-9 text-align-right">
+                    <span class="phone-icon"><i class="fa fa-phone"></i>0773975413</span>
+                    <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 8:00 AM - 5:30 PM (Mon-Fri)</span>
+                    <span class="email-icon"><i class="bi bi-browser-chrome"></i> <a href="#">vyxshop</a></span>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <span><i class="fa fa-envelope-o"></i> <a id="manage" class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a></span>
+                    }else{
+                        <span class="email-icon"><i class="fa fa-envelope-o"></i> <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a></span>
+                    }
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+    <!-- MENU -->
+    <section class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+
+                <!-- lOGO TEXT HERE -->
+                <a class="nav-link " asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/images/logo/icon-1.png" alt="logo" /></a>
+            </div>
+
+            <!-- MENU LINKS -->
+            <div class="collapse navbar-right navbar-collapse">
+                <ul class="nav navbar-nav ">
+                    <li><a class="nav-link " asp-area="Customer" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    @{
+                        // Get the current page's path
+                        var currentPagePath = Context.Request.Path;
+                        // Define the path for the home page
+                        var homePagePath = "/";
+                    }
+
+                    @if (currentPagePath == homePagePath)
+                    {
+                //<li><a href="#specialfunction" class="smoothScroll">Điểm Vượt Trội</a></li>
+                        <li><a href="#team" class="smoothScroll">Sản phẩm</a></li>
+                        <li><a href="#news" class="smoothScroll">Tin Tức</a></li>
+                        //<li><a href="#launchs" class="smoothScroll">Triển khai</a></li>
+                        //<li><a href="#clients" class="smoothScroll">Đối tác</a></li>
+
+                    }
+                    @if (User.IsInRole(SD.Role_Admin))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Quản lý</a>
+                            <div class="dropdown-menu">
+                                <p><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Danh mục</a></p>
+                                <p><a class="dropdown-item" asp-area="Admin" asp-controller="CateItem" asp-action="Index">Danh mục SP</a></p>
+                                <p><a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">Loại</a></p>
+                                <p><a class="dropdown-item" asp-area="Admin" asp-controller="Blog" asp-action="Index">Bài viết</a></p>
+                                <p><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Sản phẩm</a></p>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+
+                    }
+
+
+                    @{
+                        var cartItemCountCookie = Context.Request.Cookies["CartItemCount"];     
+                    }
+
+
+                    
+                    <li class="nav-item">
+                        <a class=nav-link asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                            <i class="bi bi-cart"></i>
+                        </a>
+                    </li>
+                    
+
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a class=nav-link asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                Quản lý hoá đơn
+                            </a>
+                        </li>
+                        <li class="appointment-btn">
+                            <form id="logoutForm" class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button id="logout" type="submit" class="nav-link btn btn-link">Đăng xuất</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="appointment-btn"><a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a></li>
+                    }
+                </ul>
+
+            </div>
+
+        </div>
+    </section>
+
+    
+
+    <partial name="_Notification" />
+    <div>
+        @RenderBody()
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <footer data-stellar-background-ratio="5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="footer-thumb">
+                        <h4 class="wow fadeInUp" data-wow-delay="0.4s">Liên Hệ Chúng tôi</h4>
+                        <p>
+                            TRỤ SỞ CHÍNH TẠI TP ĐÀ NẴNG
+                        </p>
+
+                        <div class="contact-info">
+                            <p><i class="fa fa-phone"></i> 0773975413</p>
+                            <p><i class="fa fa-envelope-o"></i>Email: dcvy.19it3@vku.udn.vn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="footer-thumb">
+                        <h4 class="wow fadeInUp" data-wow-delay="0.4s"> HỖ TRỢ KHÁCH HÀNG</h4>
+                        <p>Bảo hành sản phẩm trong vòng 12 tháng</p>
+                        <p>Chính sách bảo mật thông tin</p>
+                        <p>Ưu đãi mua sắm</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="footer-thumb">
+                        <div class="opening-hours">
+                            <h4 class="wow fadeInUp" data-wow-delay="0.4s">Giờ làm việc</h4>
+                            <p>Thứ 2 - Thứ 6 <span>08:00 AM - 5:30 PM</span></p>
+                            <p>Thứ 7 <span>08:00 AM - 12:00 AM</span></p>
+                        </div>
+
+                        <ul class="social-icon">
+                            <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-instagram"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="angle-up-btn text-right">
+                    <a href="#top" class="smoothScroll wow fadeInUp" data-wow-delay="1.2s"><i class="fa fa-angle-up"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- SCRIPTS -->
+    
+    
+    <script src="~/asset/js/jquery.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <script src="~/asset/js/jquery.sticky.js"></script>
+    <script src="~/asset/js/jquery.stellar.min.js"></script>
+    <script src="~/asset/js/wow.min.js"></script>
+    <script src="~/asset/js/smoothscroll.js"></script>
+    <script src="~/asset/js/owl.carousel.min.js"></script>
+    <script src="~/asset/js/custom.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/n94ifuzvl80pchikopiwgz2esrw8n28dwcywvpejlqrregfp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#launch-slider').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+
+            $('#product-slider').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+            $('#blog-slider').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+            $('#partner-slider').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 5,
+                slidesToScroll: 3,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+            $('#feature-slider').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 6,
+                slidesToScroll: 3,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 6,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+        });
+    </script>
+
+    <base href="~/" />
+    <script src="_content/Nethereum.Metamask.Blazor/NethereumMetamask.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

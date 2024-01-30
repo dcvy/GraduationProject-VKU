@@ -1,0 +1,372 @@
+﻿@model Kclinic.Models.ViewModels.HomeVM
+
+
+<div id="chat-container" style="z-index: 9999; position: relative;"></div>
+<script src="~/chatbot-ui.js"></script>
+<script>
+    createChatBot(host = 'http://localhost:5005/webhooks/rest/webhook', botLogo = "./imgs/bot-logo.png",
+        title = "VYX Shop ChatBot", welcomeMessage = "Chào, tôi là VYX Shop ChatBot, tôi có thể giúp gì cho bạn ?", inactiveMsg = "Server is down, Please contact the developer to activate it", theme = "purple")
+</script>
+
+
+
+<!-- HOME -->
+<section id="home" class="slider" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row">
+
+
+                <div class="item item-third">
+                    <div class="caption">
+                        <div class="col-md-offset-1 col-md-10">
+                            <h3>Tin tức</h3>
+                            <h1 style="color:forestgreen">Tin hot trong ngày</h1>
+                            <a href="#news" class="section-btn btn btn-default btn-blue smoothScroll">Đọc tin tức</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Product -->
+<section id="team" class="" data-stellar-background-ratio="1">
+    <!-- Search Form -->
+    <div class="container mt-4" style="margin-top: 20px;">
+        <div class="row">
+            <form method="get" action="/" class="form-inline">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" style="width: 130%;" placeholder="Nhập tên sản phẩm" />
+                    </div>
+                </div>
+                <div class="col-md-7 form-group mt-2">
+                    <label for="cateItemId" class="control-label col-md-4">Danh mục sản phẩm:</label>
+                    <select name="cateItemId" id="cateItemId" class="form-control col-md-8">
+                        <option value="">Tất cả danh mục</option>
+                        @foreach (var cateItem in Model.CateItems)
+                        {
+                            <option value="@cateItem.Id">@cateItem.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-block">Tìm</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    @{
+        var result = ViewData["Result"] as string;
+    }
+    
+    <div class="container mt-4" style="margin-top: 20px;">
+        <div class="row">
+            <form method="post" enctype="multipart/form-data" action="/">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Tìm sản phẩm bằng hình ảnh</label>                        
+                    </div>
+                </div>
+
+                <div class="col-md-7 form-group mt-2">
+                    <label for="imageFile" class="control-label col-md-4">Nhập hình ảnh:</label>
+                    <input type="file" id="imageFile" class="form-control col-md-8" style="width:auto;" name="imageFile" accept="image/*" />
+                </div>
+
+
+
+                <div class="col-md-2">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-block">Xử lý</button>
+                    </span>
+                </div>
+                
+            </form>
+
+            @if (!string.IsNullOrEmpty(result))
+            {
+                <div class="col-md-12 mt-3">
+                    <h2>Results:</h2>
+                    <p>@result</p>
+                </div>                
+            }
+        </div>
+        
+    </div>
+
+    <!-- Display Products -->
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            @{
+                var about4 = Model.Abouts.FirstOrDefault(a => a.Id == 4);
+            }
+            @if (about4 != null)
+            {
+                <div class="col-md-12 col-sm-12 overrate">
+                    <!-- SECTION TITLE -->
+                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                        <h2>@*@about4.Title*@</h2>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"></div>
+
+           <div class="slider" id="product-slider">
+                @{
+                    double delay = 0.2;
+                }
+
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-thumb wow fadeInUp" data-wow-delay="@delay.ToString("F1")s">
+                            <img src="@product.ImageUrl" class="img-responsive" style="width: 360px; height: 240px;" alt="">
+
+                            <div class="team-info">
+                                <a asp-action="Details" asp-route-productId="@product.Id">
+                                <h3>@product.Name</h3>
+                                </a>
+                                <br \>
+                                @{
+                                    // Convert the price to a string
+                                    string priceString = product.Price.ToString("N0"); // N0 format adds thousands separators
+                                }
+                                @*<h3><span>@priceString</span><span> .USD</span></h3>*@
+                                <div class="team-contact-info">
+                                    <p><i class="fa fa-phone"></i> 0914911577</p>
+                                    <p><i class="fa fa-envelope-o"></i> <a href="#">www.kclgroup.vn</a></p>
+                                </div>
+                                <ul class="social-icon">
+                                    <li><a asp-action="Details" asp-route-productId="@product.Id" class="fa fa-cart-plus"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    delay += 0.2;
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- NEWS -->
+<section id="news" class="" data-stellar-background-ratio="2.5">
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            @{
+                var about5 = Model.Abouts.FirstOrDefault(a => a.Id == 5);
+            }
+            @if (about5 != null)
+            {
+                <div class="col-md-12 col-sm-12 overrate">
+                    <!-- SECTION TITLE -->
+                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                        <h2>@*@about5.Title*@</h2>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"></div>
+            <div class="slider" id="blog-slider">
+            @foreach (var Blog in Model.Blogs)
+            {
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="news-thumb wow fadeInUp text-center" data-wow-delay="0.4s">
+                        <a asp-action="DetailsBlog" asp-route-id="@Blog.Id">
+                            <img src="@Blog.ImageUrl" class="img-responsive" style="width: 360px; height: 240px;" alt="">
+                        </a>
+                        <div class="news-info">
+                            <h3>
+                                <a asp-action="DetailsBlog" asp-route-id="@Blog.Id">
+                                    @Blog.Title
+                                </a>
+                            </h3>
+                            @{
+                                string description = Blog.Description;
+
+                                // Remove HTML tags and keep only the text content
+                                string textContent = System.Text.RegularExpressions.Regex.Replace(description, "<.*?>", "");
+
+                                string[] words = textContent.Split(' ');
+                                int maxWords = 20;
+                                string truncatedDescription = string.Join(" ", words.Take(maxWords));
+                            }
+                            <p>@Html.Raw($"<p>{truncatedDescription}</p>")...</p>
+                            <div class="author">
+
+                                <div class="author-info">
+                                    <h5 style="display: inline;"><strong>Tác giả: </strong></h5>
+                                    <h5 style="display: inline;">@Blog.Author</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Launch -->
+<section id="launchs" class="" data-stellar-background-ratio="2.5">
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            @{
+                var about6 = Model.Abouts.FirstOrDefault(a => a.Id == 6);
+            }
+            @if (about6 != null)
+            {
+                <div class="col-md-12 col-sm-12 overrate">
+                    <!-- SECTION TITLE -->
+                    <div class="section-title wow fadeInUp text-center" data-wow-delay="0.1s">
+                        <h2>@*@about6.Title*@</h2>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"></div>
+            <div class="slider" id="launch-slider">
+            @foreach (var Launch in Model.Launchs)
+            {
+                <div class="col-md-4 col-sm-6 mb-20" style="margin-bottom: 30px;">
+                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                        <a asp-action="DetailLaunch" asp-route-id="@Launch.Id">
+                            <img src="@Launch.ImageUrl" class="img-responsive" style="width: 360px; height: 240px;" alt="">
+                        </a>
+                        <div class="news-info">
+                            <h3>
+                                <a asp-action="DetailLaunch" asp-route-id="@Launch.Id">
+                                    @Launch.Title
+                                </a>
+                            </h3>
+                            @{
+                                string description = Launch.Description;
+
+                                // Remove HTML tags and keep only the text content
+                                string textContent = System.Text.RegularExpressions.Regex.Replace(description, "<.*?>", "");
+
+                                string[] words = textContent.Split(' ');
+                                int maxWords = 20;
+                                string truncatedDescription = string.Join(" ", words.Take(maxWords));
+                            }
+                            <p>@Html.Raw($"<p>{truncatedDescription}</p>")...</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- GOOGLE MAP -->
+<section id="google-map">
+    <!-- How to change your own map point
+            1. Go to Google Maps
+            2. Click on your location point
+            3. Click "Share" and choose "Embed map" tab
+            4. Copy only URL and paste it within the src="" field below
+    -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.733401579023!2d108.24978031218052!3d15.975292814034443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4!5e0!3m2!1svi!2s!4v1705072040698!5m2!1svi!2s" width="1600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<!-- CLIENTS -->
+<section id="partners" class="" data-stellar-background-ratio="2.5">
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            @{
+                var about8 = Model.Abouts.FirstOrDefault(a => a.Id == 8);
+            }
+            @if (about8 != null)
+            {
+                <div class="col-md-12 col-sm-12 overrate">
+                    <!-- SECTION TITLE -->
+                    <div class="section-title wow fadeInUp text-center" data-wow-delay="0.1s">
+                        <h2 style="padding-top:20px">@*@about8.Title*@</h2>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"></div>
+            <div class="slider" id="partner-slider">
+            @foreach (var Partner in Model.Partners)
+            {
+                <div class="col-md-12 col-sm-12 mb-20" style="">
+                    <div class="news-thumb wow fadeInUp text-center" data-wow-delay="0.4s">
+                        <img src="@Partner.ImageUrl" class="img-responsive" style="width: 150px; height: 150px;" alt="">
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("demo");
+            let captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
+
+    <script>
+        // Function to make a background request to /api/UserClaims
+        async function callUserClaimsApiInBackground() {
+            try {
+                // Make a fetch request to the API endpoint
+                const response = await fetch('/api/UserClaims');
+
+                // Check if the response is successful (status code in the range 200-299)
+                if (response.ok) {
+                    // Process the response if needed
+                    const data = await response.json(); // or response.text() if the response is not JSON
+                    console.log('API Response:', data);
+                } else {
+                    console.error('Error calling API:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error calling API:', error.message);
+            }
+        }
+
+        // Call the function when the page is loaded or as needed
+        window.onload = function () {
+            callUserClaimsApiInBackground();
+        };
+    </script>
+}

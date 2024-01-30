@@ -1,0 +1,36 @@
+﻿@model Kclinic.Models.ViewModels.ShoppingCartVM
+
+@using Microsoft.Extensions.Options
+@inject IOptions<Kclinic.Utility.StripeSettings> Stripe
+
+
+			@Html.Partial("_OrderDetailsPartial", Model)
+
+
+<!-- Include the script to fetch the exchange rate -->
+
+<script>
+	// Function to fetch the exchange rate and update the token amount
+	async function updateTokenAmount() {
+		// Fetch the exchange rate from the API
+		var exchangeRate = await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
+			.then(response => response.json())
+			.then(data => data.USD)
+			.catch(error => {
+				console.error('Error fetching exchange rate:', error);
+				return 0; // Use a default value or handle the error accordingly
+			});
+
+		// Calculate the equivalent token amount in ETH based on the exchange rate
+		var orderTotalElement = document.getElementById('orderTotal');
+		var tokenAmountInUSD = orderTotalElement ? parseFloat(orderTotalElement.innerText) || 0 : 0;
+		var tokenAmountInETH = tokenAmountInUSD / exchangeRate;
+
+		// Pass the token amount and exchange rate to the CoinPayments page
+		localStorage.setItem('tokenAmountInETH', tokenAmountInETH.toFixed(6));
+		localStorage.setItem('exchangeRate', exchangeRate);
+	}
+
+	// Initial update when the page loads
+	updateTokenAmount();
+</script>

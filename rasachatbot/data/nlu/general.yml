@@ -1,0 +1,125 @@
+version: "2.0"
+nlu:
+- intent: affirm
+  examples: |
+    - Great
+    - Nice
+    - OK
+    - Ofcourse
+    - Oh yes
+    - Ok
+    - Okay
+    - Okay!
+    - PLEASE
+    - SURE
+    - Sure
+    - Sweet
+    - Đồng ý
+    - Chấp nhận
+    - Rất tốt
+    - Đúng
+
+- intent: react_positive
+  examples: |
+    - Cool
+    - cool
+    - cool!
+    - HAHA
+    - WOW
+    - Wow
+    - Tuyệt
+    - Tốt
+    - Hay
+    - Vui
+- intent: customer_goodbye
+  examples: |
+    - Bye
+    - Bye bye
+    - bye
+    - Tạm biệt
+    - tạm biệt
+
+- intent: canthelp
+  examples: |
+    - không giúp
+    - không thể giúp
+- intent: deny
+  examples: |
+    - không
+    - NO
+    - No
+    - Từ chối
+    - từ chối
+    - bỏ qua
+
+
+- intent: customer_greet
+  examples: |
+    - chào
+    - Chào
+    - Xin chào
+    - xin chào
+    - chào bạn
+
+- intent: react_negative
+  examples: |
+    - buồn 
+    - chán
+    - tôi buồn quá
+
+- intent: customer_end_conversation
+  examples: |
+    - cảm ơn
+    - cảm ơn bạn
+    - cảm ơn rất nhiều
+    - kết thúc
+    - dừng
+    - thoát
+- intent: customer_help
+  examples: |
+    - giúp
+    - giúp tôi
+    - giúp tôi với
+    - hỗ trợ
+    - hỗ trợ tôi
+    
+- intent: chitchat/greet
+  examples: |
+    - khoẻ không
+    - bạn thế nào
+    - bạn ra sao
+    - ổn không
+- intent: chitchat/ask_isbot
+  examples: |
+    - bạn là bot
+    - bạn là người
+    - bạn là gì
+
+- intent: chitchat/ask_languagesbot
+  examples: |
+    - bạn nói được tiếng Anh không
+    - bạn nói được tiếng Việt không
+    - bạn biết tiếng Anh không
+    - bạn biết tiếng Việt không
+
+
+- intent: chitchat/ask_whatismyname
+  examples: |
+    - tên tôi là gì
+    - biết tên tôi không
+- intent: chitchat/ask_whatisbot
+  examples: |
+    - tên bạn là gì
+    - bạn tên gì
+    - bot là gì
+    - chatbot là gì
+- intent: chitchat/ask_whatspossible
+  examples: |
+    - tôi cần giúp đỡ
+    - bạn có thể giúp gì cho tôi
+    - bạn có thể làm được gì
+    - tôi cần hỗ trợ
+    - giúp tôi
+    - hỗ trợ tôi
+    - bạn làm được gì
+   

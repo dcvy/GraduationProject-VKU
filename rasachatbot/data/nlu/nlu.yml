@@ -1,0 +1,115 @@
+﻿version: "2.0"
+nlu:
+  - intent: products_list
+    examples: |
+      - tìm sản phẩm
+      - tìm kiếm sản phẩm
+      - hiển thị sản phẩm
+      - hiển thị danh sách sản phẩm
+      - danh sách sản phẩm
+      - bắt đầu mua sắm
+      - hiển thị toàn bộ sản phẩm
+      - sản phẩm đang bán
+      - mua sắm Online
+      - mua sắm online
+      - Mua sắm online
+      - mua sắm
+
+  - intent: search_products
+    examples: |
+      - [T-Shirt]{"entity":"category","value":"T-Shirt"}
+      - [Longsleeve]{"entity":"category","value":"Longsleeve"}
+      - [Pants]{"entity":"category","value":"Pants"}
+      - [Shorts]{"entity":"category","value":"Shorts"}
+      - [Hat]{"entity":"category","value":"Hat"}
+  - intent: add_to_cart
+    examples: |
+      - /add_to_cart{"ProductId": 1, "Count": 1}
+      - /add_to_cart{"ProductId": 2, "Count": 1}
+      - /add_to_cart{"ProductId": 3, "Count": 1}
+      - /add_to_cart{"ProductId": 4, "Count": 1}
+      - /add_to_cart{"ProductId": 5, "Count": 1}
+      - /add_to_cart{"ProductId": 6, "Count": 1}
+      - /add_to_cart{"ProductId": 7, "Count": 1}
+      - /add_to_cart{"ProductId": 8, "Count": 1}
+      - /add_to_cart{"ProductId": 9, "Count": 1}
+      - /add_to_cart{"ProductId": 0, "Count": 1}
+  - intent: customer_contact
+    examples: |
+      - liên lạc
+      - liên lạc với chúng tôi
+      - liên hệ
+      - nói với tôi
+      - tìm chúng tôi
+      - trợ giúp
+      - cần trợ giúp
+      - địa chỉ cửa hàng
+
+  - intent: conversation_continue
+    examples: |
+      - tiếp tục
+      - tiếp theo
+      - tiếp
+      - tiếp đến
+
+  - intent: customer_shop_by_categories
+    examples: |
+      - hiển thị danh mục sản phẩm
+      - danh mục sản phẩm
+      - liệt kê danh mục sản phẩm
+      - tìm danh mục sản phẩm
+      - danh mục
+      - hiện danh mục
+
+    
+  - intent: customer_menu
+    examples: |
+      - menu
+      - Menu
+      - hiện menu
+      - tìm menu
+      - tìm kiếm Menu
+      - cho tôi xem
+      - bạn có thể giúp gì tôi
+      - khả năng
+      - khả năng của bạn
+      - bạn làm được những gì
+      - cho tôi xem bạn làm được gì
+
+
+  - intent: bot_challenge
+    examples: |
+      - bạn là bot?
+      - bạn là người?
+      - tôi đang nói với ai?
+      - asjdkjad asdljalsdjka sd
+      - alksjdlkjasd asldjlajksdasd
+      - akjdsjlasdlkjasdk asdasd
+      - qweqweqweqeoquiweoiqwe
+      - asdlkasjdkljasd
+      - zxmcnbzmxcbmzbxcb
+      - 1238798172398719237981723987189273
+      - qweasdjaj&%%&^%&^!!@U!@(#(!*&@#(*&!(*@&#
+
+  - intent: feedback
+    examples: |
+      - tốt
+      - xuất sắc
+      - giỏi
+      - tệ
+      - kém
+      - khá
+      - được
+      - trung bình
+      - bình thường
+  
+      
+
+            
+  - intent: outofdomain
+    examples: |
+      - tôi đang chờ
+      - tôi cần vé du lịch
+      - vui lòng kiểm tra vấn đề này
+      
+      
